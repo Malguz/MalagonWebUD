@@ -1,0 +1,310 @@
+
+:root {
+    --ud-blue:       #003594;   
+    --ud-red:        #CC0000;   
+    --ud-light:      #f0f4ff;
+    --ud-border:     #c8d8f8;
+    --text-main:     #1a1a2e;
+    --radius:        10px;
+    --shadow:        0 4px 18px rgba(0, 53, 148, 0.12);
+    --shadow-hover:  0 8px 28px rgba(0, 53, 148, 0.22);
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e8eeff 0%, #f5f7ff 100%);
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+
+.navbar-ud {
+    background: linear-gradient(90deg, var(--ud-blue) 0%, #0051cc 100%);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+.navbar-ud .navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    color: #ffffff !important;
+}
+
+.navbar-ud .nav-link {
+    color: rgba(255,255,255,0.88) !important;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.navbar-ud .nav-link:hover,
+.navbar-ud .nav-link.active {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+
+.card-ud {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s;
+    background: #ffffff;
+}
+
+.card-ud:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header-ud {
+    background: linear-gradient(90deg, var(--ud-blue), #1565c0);
+    color: #ffffff;
+    border-radius: var(--radius) var(--radius) 0 0 !important;
+    padding: 1rem 1.4rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.form-label-ud {
+    font-weight: 600;
+    color: var(--ud-blue);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--ud-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 53, 148, 0.18);
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+    box-shadow: 0 0 0 0.2rem rgba(204, 0, 0, 0.18);
+}
+
+.required-mark {
+    color: var(--ud-red);
+    font-weight: 700;
+    margin-left: 2px;
+}
+
+
+.btn-ud-primary {
+    background: linear-gradient(90deg, var(--ud-blue), #1565c0);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.55rem 1.8rem;
+    border-radius: 6px;
+    transition: all 0.25s;
+    letter-spacing: 0.3px;
+}
+
+.btn-ud-primary:hover {
+    background: linear-gradient(90deg, #002878, var(--ud-blue));
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 53, 148, 0.35);
+}
+
+.btn-ud-secondary {
+    background: #e8eeff;
+    border: 1.5px solid var(--ud-blue);
+    color: var(--ud-blue);
+    font-weight: 600;
+    padding: 0.5rem 1.4rem;
+    border-radius: 6px;
+    transition: all 0.25s;
+}
+
+.btn-ud-secondary:hover {
+    background: var(--ud-blue);
+    color: #ffffff;
+}
+
+
+.table-aspirantes {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.table-aspirantes thead {
+    background: linear-gradient(90deg, var(--ud-blue), #1565c0);
+    color: #ffffff;
+}
+
+.table-aspirantes thead th {
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.4px;
+    border: none;
+    padding: 0.85rem 0.9rem;
+    white-space: nowrap;
+}
+
+.table-aspirantes tbody tr {
+    transition: background 0.15s;
+}
+
+.table-aspirantes tbody tr:hover {
+    background: var(--ud-light);
+}
+
+.table-aspirantes tbody td {
+    font-size: 0.9rem;
+    vertical-align: middle;
+    border-color: var(--ud-border);
+    padding: 0.65rem 0.9rem;
+}
+
+.badge-prog {
+    background: var(--ud-light);
+    color: var(--ud-blue);
+    border: 1px solid var(--ud-border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3em 0.65em;
+    border-radius: 20px;
+}
+
+.row-num {
+    background: var(--ud-blue);
+    color: white;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+
+.alert-ud-success {
+    background: #e8f5e9;
+    border-left: 5px solid #2e7d32;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: #1b5e20;
+}
+
+.alert-ud-error {
+    background: #fde8e8;
+    border-left: 5px solid var(--ud-red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: #7f0000;
+}
+
+.stat-card {
+    background: var(--ud-blue);
+    color: white;
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+}
+
+.stat-card .stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+.hero-ud {
+    background: linear-gradient(135deg, var(--ud-blue) 0%, #1565c0 60%, #0288d1 100%);
+    color: #ffffff;
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.hero-ud h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero-ud p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+}
+
+.hero-ud .hero-logo {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+
+.menu-card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: all 0.25s;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-main);
+    display: block;
+}
+
+.menu-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+    color: var(--text-main);
+}
+
+.menu-card .menu-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+}
+
+.menu-card .card-body {
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.menu-card h5 {
+    font-weight: 700;
+    color: var(--ud-blue);
+    margin-bottom: 0.4rem;
+}
+
+.menu-card p {
+    font-size: 0.88rem;
+    color: #555;
+    margin: 0;
+}
+
+.menu-card .card-top-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--ud-blue), #1565c0);
+}
+
+.footer-ud {
+    background: linear-gradient(90deg, var(--ud-blue) 0%, #1565c0 100%);
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    padding: 1.2rem 1rem;
+    margin-top: 3rem;
+    font-size: 0.88rem;
+}
+
+.footer-ud strong {
+    color: #ffffff;
+}
+
+@media (max-width: 767px) {
+    .hero-ud h1 { font-size: 1.5rem; }
+    .table-aspirantes { font-size: 0.82rem; }
+}
