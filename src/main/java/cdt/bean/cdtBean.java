@@ -9,11 +9,11 @@ import cdt.modelo.cdtDAO;
 import asp.modelo.Aspirante;
 
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 
-@ManagedBean(name = "cdt")
+@Named(value = "cdt")
 @SessionScoped
 public class cdtBean implements Serializable {
     private static final long serialVersionUID = 1L;

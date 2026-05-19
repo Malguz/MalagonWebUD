@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Simulador CDT - MalagonWebUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+    <style>
+        .res-card{background:linear-gradient(135deg,#003594,#1565c0);color:#fff;border-radius:12px;padding:1.5rem;margin-bottom:1rem;}
+        .res-label{font-size:.75rem;opacity:.8;text-transform:uppercase;letter-spacing:.5px;}
+        .res-value{font-size:1.3rem;font-weight:700;}
+        .res-value.big{font-size:1.8rem;}
+        .res-div{border-color:rgba(255,255,255,.25);margin:.6rem 0;}
+    </style>
+</h:head>
+<h:body>
+    <nav class="navbar navbar-expand-lg navbar-ud mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.xhtml"><i class="bi bi-mortarboard-fill me-2"></i>MalagonWebUD</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.xhtml">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="asp.xhtml">Registro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lista.xhtml">Listado</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cdt.xhtml">CDT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- FORMULARIO -->
+            <div class="col-lg-5">
+                <div class="card-ud mb-3">
+                    <div class="card-header-ud"><i class="bi bi-bank me-1"></i>Simulador de CDT</div>
+                    <div class="card-body p-4">
+                        <h:form id="formCDT">
+                            <h:messages globalOnly="true"
+                                        errorClass="alert-ud-error mb-3 d-block"
+                                        infoClass="alert-ud-success mb-3 d-block"
+                                        showSummary="true" showDetail="false"/>
+
+                            <div class="mb-3">
+                                <label class="form-label-ud">Titular<span class="required-mark">*</span></label>
+                                <h:inputText id="titular" value="#{cdt.dto.titular}" styleClass="form-control"
+                                             required="true" requiredMessage="El titular es obligatorio."
+                                             validatorMessage="Entre 3 y 80 caracteres.">
+                                    <f:validateLength minimum="3" maximum="80"/>
+                                </h:inputText>
+                                <h:message for="titular" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label-ud">Capital Inicial (COP)<span class="required-mark">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <h:inputText id="capital" value="#{cdt.dto.capital}" styleClass="form-control"
+                                                 required="true" requiredMessage="El capital es obligatorio."
+                                                 converterMessage="Solo numeros." validatorMessage="Minimo $500.000, maximo $5.000.000.000.">
+                                        <f:validateDoubleRange minimum="500000" maximum="5000000000"/>
+                                    </h:inputText>
+                                </div>
+                                <small class="text-muted">Minimo $500.000 COP</small>
+                                <h:message for="capital" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label-ud">Tasa de Interes Anual (%)<span class="required-mark">*</span></label>
+                                <div class="input-group">
+                                    <h:inputText id="tasaAnual" value="#{cdt.dto.tasaAnual}" styleClass="form-control"
+                                                 required="true" requiredMessage="La tasa es obligatoria."
+                                                 converterMessage="Numero decimal." validatorMessage="Entre 0.01 y 30.">
+                                        <f:validateDoubleRange minimum="0.01" maximum="30"/>
+                                    </h:inputText>
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <small class="text-muted">Ej: 12.5 para 12.5% E.A.</small>
+                                <h:message for="tasaAnual" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label-ud">Plazo en Dias<span class="required-mark">*</span></label>
+                                <h:inputText id="plazoDias" value="#{cdt.dto.plazoDias}" styleClass="form-control"
+                                             required="true" requiredMessage="El plazo es obligatorio."
+                                             converterMessage="Numero entero." validatorMessage="Entre 30 y 1825 dias.">
+                                    <f:validateLongRange minimum="30" maximum="1825"/>
+                                </h:inputText>
+                                <small class="text-muted">Min 30 dias · Max 1825 dias (5 anos)</small>
+                                <h:message for="plazoDias" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label-ud">Fecha de Apertura<span class="required-mark">*</span></label>
+                                <h:inputText id="fechaAp" value="#{cdt.dto.fechaApertura}" styleClass="form-control"
+                                             required="true" requiredMessage="La fecha es obligatoria.">
+                                    <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+                                </h:inputText>
+                                <small class="text-muted">Formato: AAAA-MM-DD (Ej: 2026-05-17)</small>
+                                <h:message for="fechaAp" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label-ud">Tipo de Calculo<span class="required-mark">*</span></label>
+                                <h:selectOneRadio id="tipo" value="#{cdt.dto.tipo}" layout="pageDirection"
+                                                  styleClass="d-flex gap-3"
+                                                  required="true" requiredMessage="Seleccione el tipo.">
+                                    <f:selectItem itemValue="simple"    itemLabel="Interes Simple  (I = C x r x t)"/>
+                                    <f:selectItem itemValue="compuesto" itemLabel="Interes Compuesto  (M = C x (1+r)^t)"/>
+                                </h:selectOneRadio>
+                                <h:message for="tipo" styleClass="text-danger small d-block mt-1"/>
+                            </div>
+
+                            <p class="text-muted small mb-3"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
+
+                            <div class="d-flex gap-2 flex-wrap">
+                                <h:commandButton value="📊  Calcular CDT"
+                                                 styleClass="btn btn-ud-primary"
+                                                 action="#{cdt.calcular}"/>
+                                <h:commandButton value="🔄  Nueva Simulacion"
+                                                 styleClass="btn btn-ud-secondary"
+                                                 action="#{cdt.nueva}"
+                                                 immediate="true"/>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+
+                <div class="card-ud p-3" style="background:#f0f4ff;border-left:4px solid var(--ud-blue);">
+                    <p style="font-size:.88rem;color:#003594;font-weight:700;margin-bottom:.5rem;">
+                        <i class="bi bi-calculator me-1"></i>Formulas aplicadas
+                    </p>
+                    <p style="font-size:.82rem;margin-bottom:.3rem;"><strong>Simple:</strong> I = C × (Tasa/365) × Dias</p>
+                    <p style="font-size:.82rem;margin-bottom:.3rem;"><strong>Compuesto:</strong> M = C × (1 + Tasa/365)^Dias</p>
+                    <p style="font-size:.82rem;margin-bottom:0;"><strong>Retencion:</strong> 4% si intereses &gt; $4.979,90 (10% UVT 2026)</p>
+                </div>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div class="col-lg-7">
+
+                <h:panelGroup rendered="#{!cdt.calculado}">
+                    <div class="card-ud p-5 text-center mb-4">
+                        <div style="font-size:3.5rem;margin-bottom:1rem;">💰</div>
+                        <h4 style="color:var(--ud-blue);">Ingrese los datos del CDT</h4>
+                        <p class="text-muted">Complete el formulario y presione <strong>Calcular CDT</strong>.</p>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{cdt.calculado}">
+                    <div class="res-card">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="res-label">Titular</div>
+                                <div style="font-size:1.2rem;font-weight:700;">
+                                    <h:outputText value="#{cdt.dto.titular}"/>
+                                    &nbsp;
+                                    <span style="background:rgba(255,255,255,.2);padding:.2rem .7rem;border-radius:20px;font-size:.8rem;">
+                                        <h:outputText value="#{cdt.dto.tipo}"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <hr class="res-div"/>
+                            <div class="col-md-6">
+                                <div class="res-label">Capital invertido</div>
+                                <div class="res-value">
+                                    $<h:outputText value="#{cdt.dto.capital}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="0"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="res-label">Tasa anual / Plazo</div>
+                                <div class="res-value">
+                                    <h:outputText value="#{cdt.dto.tasaAnual}"/>% /
+                                    <h:outputText value="#{cdt.dto.plazoDias}"/> dias
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="res-label">Fecha apertura</div>
+                                <div class="res-value" style="font-size:1rem;"><h:outputText value="#{cdt.dto.fechaApertura}"/></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="res-label">Fecha vencimiento</div>
+                                <div class="res-value" style="font-size:1rem;">📅 <h:outputText value="#{cdt.dto.fechaVencimiento}"/></div>
+                            </div>
+                            <hr class="res-div"/>
+                            <div class="col-md-6">
+                                <div class="res-label">Interes generado</div>
+                                <div class="res-value" style="color:#a5d6a7;">
+                                    $<h:outputText value="#{cdt.dto.interesGenerado}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="res-label">Retencion en la fuente (4%)</div>
+                                <div class="res-value" style="color:#ffcc80;">
+                                    $<h:outputText value="#{cdt.dto.retencionFuente}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <hr class="res-div"/>
+                            <div class="col-md-6">
+                                <div class="res-label">Total al vencimiento</div>
+                                <div class="res-value big">
+                                    $<h:outputText value="#{cdt.dto.totalVencimiento}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="res-label">Valor neto a recibir</div>
+                                <div class="res-value big" style="color:#a5d6a7;">
+                                    $<h:outputText value="#{cdt.dto.valorNeto}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                    </h:outputText>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <!-- Historial -->
+                <h:panelGroup rendered="#{!cdt.historial.isEmpty()}">
+                    <div class="card-ud mt-3">
+                        <div class="card-header-ud">
+                            <i class="bi bi-clock-history me-1"></i>Historial
+                            (<h:outputText value="#{cdt.totalSimulaciones}"/>)
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <h:dataTable value="#{cdt.historial}" var="h"
+                                             styleClass="table table-hover mb-0" style="font-size:.85rem;">
+                                    <h:column><f:facet name="header">Titular</f:facet><h:outputText value="#{h.titular}"/></h:column>
+                                    <h:column><f:facet name="header">Capital</f:facet>
+                                        $<h:outputText value="#{h.capital}"><f:convertNumber groupingUsed="true" minFractionDigits="0"/></h:outputText>
+                                    </h:column>
+                                    <h:column><f:facet name="header">Tasa</f:facet><h:outputText value="#{h.tasaAnual}"/>%</h:column>
+                                    <h:column><f:facet name="header">Dias</f:facet><h:outputText value="#{h.plazoDias}"/></h:column>
+                                    <h:column><f:facet name="header">Tipo</f:facet><span class="badge-prog"><h:outputText value="#{h.tipo}"/></span></h:column>
+                                    <h:column><f:facet name="header">Valor Neto</f:facet>
+                                        $<h:outputText value="#{h.valorNeto}"><f:convertNumber groupingUsed="true" minFractionDigits="0"/></h:outputText>
+                                    </h:column>
+                                    <h:column><f:facet name="header">Vencimiento</f:facet><h:outputText value="#{h.fechaVencimiento}"/></h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                        <div class="p-2 text-end">
+                            <h:form>
+                                <h:commandButton value="Limpiar historial"
+                                                 styleClass="btn btn-sm btn-outline-danger"
+                                                 action="#{cdt.limpiarHistorial}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-ud">
+       <strong>Andres Felipe Malagon Guzman</strong> 
+        Asignatura: Programacion Web | Grupo: 302 | 
+        Universidad Distrital Francisco Jose de Caldas | 2026
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>
