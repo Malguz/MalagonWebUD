@@ -2,7 +2,7 @@ package cdt.modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CDT implements Serializable {
+public class cdt implements Serializable {
     private static final long serialVersionUID = 1L;
     private double    capital;
     private double    tasaAnual;
@@ -16,7 +16,7 @@ public class CDT implements Serializable {
     private double    retencionFuente;
     private double    valorNeto;
 
-    public CDT(){}
+    public cdt(){}
     public double getCapital(){return capital;} public void setCapital(double v){capital=v;}
     public double getTasaAnual(){return tasaAnual;} public void setTasaAnual(double v){tasaAnual=v;}
     public int getPlazoDias(){return plazoDias;} public void setPlazoDias(int v){plazoDias=v;}
